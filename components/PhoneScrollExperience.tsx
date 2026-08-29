@@ -610,7 +610,7 @@ export default function PhoneScrollExperience() {
               : "bg-cyan-400/10 text-cyan-400 border-cyan-400/25"
           }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <span>QASIR MOBILE SHOP</span>
+            <span>ZUBAIR MOBILE SHOP</span>
           </div>
           <h1 className={`text-lg sm:text-3xl font-black tracking-tight leading-tight max-w-xl ${
             theme === "light"

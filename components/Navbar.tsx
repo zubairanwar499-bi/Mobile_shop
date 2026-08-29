@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, ShoppingCart, Menu, Zap, Sun, Moon } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
-import { business } from "@/data/business";
+import ZubairLogo from "./ZubairLogo";
 import MobileMenu from "./MobileMenu";
 
 interface NavbarProps {
@@ -56,17 +56,12 @@ export default function Navbar({ onSearchOpen }: NavbarProps) {
             {/* Logo */}
             <button
               onClick={() => scrollToSection("#home")}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-2.5 group cursor-pointer"
               aria-label="Go to home"
             >
-              <div className="relative">
-                <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
-                  <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
-                </div>
-                <div className="absolute inset-0 bg-cyan-400/30 rounded-lg blur-md group-hover:blur-lg transition-all" />
-              </div>
-              <span className="text-white font-bold text-base lg:text-lg tracking-tight">
-                {business.name}
+              <ZubairLogo size={36} />
+              <span className="text-white font-black text-base lg:text-lg tracking-tight">
+                Zubair <span className="text-cyan-400">Mobile Shop</span>
               </span>
             </button>
 

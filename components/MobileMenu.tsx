@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Zap, PhoneCall, Sun, Moon } from "lucide-react";
+import { X, PhoneCall, Sun, Moon } from "lucide-react";
 import { business } from "@/data/business";
 import { useTheme } from "@/context/ThemeContext";
+import ZubairLogo from "./ZubairLogo";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -39,12 +40,10 @@ export default function MobileMenu({
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-md flex items-center justify-center">
-                  <Zap className="w-3.5 h-3.5 text-white" />
-                </div>
-                <span className="text-white font-bold text-base">
-                  {business.name}
+              <div className="flex items-center gap-2.5">
+                <ZubairLogo size={32} />
+                <span className="text-white font-black text-base">
+                  Zubair <span className="text-cyan-400">Mobile</span>
                 </span>
               </div>
               <button

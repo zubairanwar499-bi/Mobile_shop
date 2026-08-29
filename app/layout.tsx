@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Qasir Mobile Shop | Buy, Sell & Repair Phones",
+  title: "Zubair Mobile Shop | Buy, Sell & Repair Phones",
   description:
     "Buy smartphones, sell your used phone, and get professional mobile repair services. Pakistan's premium smartphone destination.",
   keywords: [
@@ -21,19 +21,19 @@ export const metadata: Metadata = {
     "screen repair",
     "battery replacement",
     "Pakistan",
-    "Qasir Mobile Shop",
+    "Zubair Mobile Shop",
   ],
   openGraph: {
-    title: "Qasir Mobile Shop | Buy, Sell & Repair Phones",
+    title: "Zubair Mobile Shop | Buy, Sell & Repair Phones",
     description:
       "Buy smartphones, sell your used phone, and get professional mobile repair services.",
     type: "website",
     locale: "en_PK",
-    siteName: "Qasir Mobile Shop",
+    siteName: "Zubair Mobile Shop",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Qasir Mobile Shop | Buy, Sell & Repair Phones",
+    title: "Zubair Mobile Shop | Buy, Sell & Repair Phones",
     description:
       "Buy smartphones, sell your used phone, and get professional mobile repair services.",
   },

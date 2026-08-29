@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Zap, Globe, Share2, MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { Globe, Share2, MessageCircle, Mail, ArrowRight } from "lucide-react";
 import { business } from "@/data/business";
+import ZubairLogo from "./ZubairLogo";
 
 const footerLinks = {
   Shop: [
@@ -49,11 +50,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-white font-bold text-lg">{business.name}</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <ZubairLogo size={36} />
+              <span className="text-white font-black text-lg tracking-tight">
+                Zubair <span className="text-cyan-400">Mobile Shop</span>
+              </span>
             </div>
             <p className="text-[#A1A1AA] text-sm leading-relaxed mb-6 max-w-xs">
               {business.tagline} — Your trusted destination for buying, selling,

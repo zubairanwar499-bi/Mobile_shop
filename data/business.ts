@@ -4,13 +4,13 @@
 // ============================================================
 
 export const business = {
-  name: "Qasir Mobile Shop",
-  shortName: "QMS",
+  name: "Zubair Mobile Shop",
+  shortName: "ZMS",
   tagline: "Your Phone. Rebuilt Better.",
   subTagline: "Buy. Sell. Repair. Upgrade.",
   phone: "+92 XXX XXXXXXX",
   whatsapp: "+92XXXXXXXXXX",
-  email: "hello@qasirmobile.com",
+  email: "hello@zubairmobileshop.com",
   address: "Your Shop Address, City, Pakistan",
   openingHours: "Mon–Sat: 10:00 AM – 8:00 PM",
   googleMapsUrl: "#",
