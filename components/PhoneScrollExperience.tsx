@@ -168,27 +168,29 @@ export default function PhoneScrollExperience() {
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
 
-      ctx.clearRect(0, 0, cw, ch);
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, cw, ch);
       ctx.save();
 
       // Continuous Slow & Smooth Ambient Floating Animation
       const isPortrait = ch > cw;
-      const floatY = Math.sin(time) * 9;
+      const floatY = Math.sin(time) * 8;
       const floatX = Math.cos(time * 0.7) * 4;
 
       // 3D Parallax Offsets from Cursor movement
-      const parallaxX = mouseX * 28 + floatX;
-      const parallaxY = mouseY * 18 + floatY;
+      const parallaxX = mouseX * 24 + floatX;
+      const parallaxY = mouseY * 16 + floatY;
 
-      // Responsive Contain & Positioning Logic
-      // Mobile portrait: scale phone nicely and center at 37% height so it has full clearance above buttons
+      // Responsive Heroic Scaling & Centering Logic
       let scale: number;
       let centerY: number;
       if (isPortrait) {
-        scale = Math.min((cw * 0.90) / iw, (ch * 0.52) / ih);
-        centerY = ch * 0.37 + parallaxY;
+        // Mobile portrait: scale to fill viewport heroically, centered perfectly
+        scale = Math.max((cw * 1.30) / iw, (ch * 0.58) / ih);
+        centerY = ch * 0.44 + parallaxY;
       } else {
-        scale = Math.min((cw * 0.92) / iw, (ch * 0.76) / ih);
+        // Desktop landscape:
+        scale = Math.min((cw * 0.94) / iw, (ch * 0.80) / ih);
         centerY = ch / 2 + parallaxY;
       }
 
@@ -506,22 +508,21 @@ export default function PhoneScrollExperience() {
     >
       {/* Sticky Hero Viewport (100vh) */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Dynamic Cinematic Background Lighting */}
+        {/* Dynamic Cinematic Background Lighting - seamlessly blends into OLED black */}
         <div
-          className="absolute inset-0 pointer-events-none transition-all duration-700"
+          className="absolute inset-0 pointer-events-none transition-all duration-700 bg-black"
           style={{
             background:
               currentSeqIdx === 0
-                ? "radial-gradient(ellipse at 50% 45%, rgba(6, 40, 60, 0.45) 0%, rgba(5, 5, 5, 0.95) 75%)"
+                ? "radial-gradient(circle at 50% 45%, rgba(6, 40, 60, 0.22) 0%, #000000 65%)"
                 : currentSeqIdx === 1
-                ? "radial-gradient(ellipse at 50% 50%, rgba(20, 50, 95, 0.5) 0%, rgba(7, 7, 9, 0.95) 75%)"
-                : "radial-gradient(ellipse at 50% 55%, rgba(15, 65, 80, 0.4) 0%, rgba(5, 5, 5, 0.95) 75%)",
+                ? "radial-gradient(circle at 50% 50%, rgba(20, 50, 95, 0.25) 0%, #000000 65%)"
+                : "radial-gradient(circle at 50% 50%, rgba(15, 65, 80, 0.22) 0%, #000000 65%)",
           }}
         />
 
         {/* Ambient glow orbs */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-blue-600/8 rounded-full blur-[120px] pointer-events-none" />
 
         {/* Cybernetic Grid Overlay */}
         <div
@@ -538,7 +539,7 @@ export default function PhoneScrollExperience() {
         <div className="relative w-full h-full flex items-center justify-center z-10 pointer-events-none">
           <canvas
             ref={canvasRef}
-            className="w-full h-full object-contain"
+            className="w-full h-full block"
             aria-label="Interactive 3D phone model"
           />
         </div>
