@@ -564,18 +564,12 @@ export default function PhoneScrollExperience() {
         />
 
         {/* THE 3D PHONE CANVAS (Animated on Scroll & Cursor) */}
-        <div className="relative w-full h-full flex items-center justify-center z-10 pointer-events-none px-3 sm:px-8">
-          <div className={`relative w-full h-full flex items-center justify-center transition-all duration-500 ${
-            theme === "light"
-              ? "max-w-6xl mx-auto h-[62vh] sm:h-[72vh] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.25)] border border-slate-200/90 bg-black"
-              : "w-full h-full"
-          }`}>
-            <canvas
-              ref={canvasRef}
-              className="w-full h-full block"
-              aria-label="Interactive 3D phone model"
-            />
-          </div>
+        <div className="relative w-full h-full flex items-center justify-center z-10 pointer-events-none">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full block"
+            aria-label="Interactive 3D phone model"
+          />
         </div>
 
         {/* Cinematic Vignettes (Active in dark mode, light mode has clean white backdrop) */}
@@ -601,9 +595,9 @@ export default function PhoneScrollExperience() {
           </div>
         )}
 
-        {/* Initial Hero Header Overlay (Top Center - fills the top space with Apple-level typography) */}
+        {/* Mobile-Only Top Header (Hidden on Desktop) */}
         <motion.div
-          className="absolute inset-x-0 top-18 sm:top-24 z-20 flex flex-col items-center justify-center px-4 text-center pointer-events-none"
+          className="md:hidden absolute inset-x-0 top-18 sm:top-24 z-20 flex flex-col items-center justify-center px-4 text-center pointer-events-none"
           animate={{
             opacity: activeStoryIdx === 0 ? 1 : 0,
             y: activeStoryIdx === 0 ? 0 : -20,
@@ -618,7 +612,7 @@ export default function PhoneScrollExperience() {
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             <span>QASIR MOBILE SHOP</span>
           </div>
-          <h1 className={`text-lg sm:text-3xl md:text-5xl font-black tracking-tight leading-tight max-w-xl ${
+          <h1 className={`text-lg sm:text-3xl font-black tracking-tight leading-tight max-w-xl ${
             theme === "light"
               ? "text-slate-900 drop-shadow-sm"
               : "text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]"
@@ -639,7 +633,7 @@ export default function PhoneScrollExperience() {
 
         {/* Initial Hero Action Overlay (Visible at 0–15% scroll, smoothly dissolves on scroll) */}
         <motion.div
-          className="absolute inset-x-0 bottom-6 sm:bottom-16 z-20 flex flex-col items-center justify-center px-4 pointer-events-none"
+          className="absolute inset-x-0 bottom-8 sm:bottom-16 z-20 flex flex-col items-center justify-center px-4 pointer-events-none"
           animate={{
             opacity: activeStoryIdx === 0 ? 1 : 0,
             y: activeStoryIdx === 0 ? 0 : 25,
@@ -647,35 +641,36 @@ export default function PhoneScrollExperience() {
           }}
           transition={{ duration: 0.4 }}
         >
-          <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2.5 sm:gap-4 items-center mb-2.5 w-full max-w-xs sm:max-w-none justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center mb-4 sm:mb-5 w-full sm:w-auto max-w-xs sm:max-w-none justify-center">
             <button
               onClick={() => scrollTo("#booking")}
-              className="group flex items-center justify-center gap-1.5 px-3 py-3 sm:px-8 sm:py-4 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-2xl sm:rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(34,211,238,0.5)] text-xs sm:text-base cursor-pointer"
+              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-full transition-all duration-300 hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] text-sm sm:text-base cursor-pointer pointer-events-auto"
             >
-              <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span>Book Repair</span>
+              <Wrench className="w-4 h-4" />
+              <span>Book a Repair</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
               onClick={() => scrollTo("#shop")}
-              className="flex items-center justify-center gap-1.5 px-3 py-3 sm:px-8 sm:py-4 border border-white/20 hover:border-white/50 text-white font-semibold rounded-2xl sm:rounded-full transition-all duration-300 hover:bg-white/10 text-xs sm:text-base backdrop-blur-md bg-black/60 cursor-pointer"
+              className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 border border-white/20 hover:border-white/50 text-white font-semibold rounded-full transition-all duration-300 hover:bg-white/10 text-sm sm:text-base backdrop-blur-sm cursor-pointer pointer-events-auto"
             >
-              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <ShoppingBag className="w-4 h-4" />
               <span>Shop Phones</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-1.5 text-[9px] sm:text-xs uppercase tracking-[0.2em] text-[#A1A1AA] font-mono">
+          <div className="flex items-center gap-2 text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A1A1AA] font-mono">
             <motion.span
-              animate={{ y: [0, 4, 0] }}
+              animate={{ y: [0, 5, 0] }}
               transition={{ duration: 1.6, repeat: Infinity }}
             >
-              <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+              <ChevronDown className="w-4 h-4 text-cyan-400" />
             </motion.span>
-            <span>SCROLL OR TOUCH TO ROTATE 3D</span>
+            <span>SCROLL OR MOVE CURSOR TO ROTATE 3D</span>
           </div>
 
-          {/* Smart Mobile Value-Props Strip */}
-          <div className="flex items-center justify-center gap-2 sm:gap-5 mt-2 sm:mt-3 text-[9px] sm:text-xs font-semibold text-[#A1A1AA] flex-wrap">
+          {/* Smart Mobile Value-Props Strip (Mobile only) */}
+          <div className="md:hidden flex items-center justify-center gap-2 sm:gap-5 mt-2 sm:mt-3 text-[9px] sm:text-xs font-semibold text-[#A1A1AA] flex-wrap">
             <span className="flex items-center gap-1 text-cyan-400">⚡ 30-Min Fast Repair</span>
             <span>•</span>
             <span className="flex items-center gap-1">🛡️ 90-Day Warranty</span>

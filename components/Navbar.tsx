@@ -71,12 +71,12 @@ export default function Navbar({ onSearchOpen }: NavbarProps) {
             </button>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-5 lg:gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => scrollToSection(link.href)}
-                  className="text-[#A1A1AA] hover:text-white text-sm font-medium transition-colors duration-200 relative group"
+                  className="text-[#A1A1AA] hover:text-white text-sm font-medium transition-colors duration-200 relative group cursor-pointer"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 group-hover:w-full transition-all duration-300" />
@@ -134,7 +134,7 @@ export default function Navbar({ onSearchOpen }: NavbarProps) {
 
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="lg:hidden p-2 text-[#A1A1AA] hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                className="md:hidden p-2 text-[#A1A1AA] hover:text-white transition-colors rounded-lg hover:bg-white/5 cursor-pointer"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
