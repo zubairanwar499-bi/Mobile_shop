@@ -180,21 +180,21 @@ export default function PhoneScrollExperience() {
       const parallaxX = mouseX * 28 + floatX;
       const parallaxY = mouseY * 18 + floatY;
 
-      // Responsive Contain Logic
-      // Mobile portrait: scale phone to comfortably occupy ~50-56% of viewport height
+      // Responsive Contain & Positioning Logic
+      // Mobile portrait: scale phone nicely and center at 37% height so it has full clearance above buttons
       let scale: number;
+      let centerY: number;
       if (isPortrait) {
-        const baseScale = cw / iw;
-        scale = Math.min(baseScale * 1.34, (ch * 0.55) / ih);
+        scale = Math.min((cw * 0.90) / iw, (ch * 0.52) / ih);
+        centerY = ch * 0.37 + parallaxY;
       } else {
         scale = Math.min((cw * 0.92) / iw, (ch * 0.76) / ih);
+        centerY = ch / 2 + parallaxY;
       }
 
       const dw = iw * scale;
       const dh = ih * scale;
       const centerX = cw / 2 + parallaxX;
-      const centerY =
-        (isPortrait ? (ch - dh) * 0.44 : (ch - dh) / 2) + dh / 2 + parallaxY;
 
       // 3D Ground Radial Shadow / Glow beneath phone (moves opposite to tilt)
       const shadowX = cw / 2 - parallaxX * 0.4;
@@ -567,7 +567,7 @@ export default function PhoneScrollExperience() {
 
         {/* Initial Hero Action Overlay (Visible at 0–15% scroll, smoothly dissolves on scroll) */}
         <motion.div
-          className="absolute inset-x-0 bottom-14 sm:bottom-20 z-20 flex flex-col items-center justify-center px-4 pointer-events-none"
+          className="absolute inset-x-0 bottom-6 sm:bottom-16 z-20 flex flex-col items-center justify-center px-4 pointer-events-none"
           animate={{
             opacity: activeStoryIdx === 0 ? 1 : 0,
             y: activeStoryIdx === 0 ? 0 : 25,
@@ -575,32 +575,31 @@ export default function PhoneScrollExperience() {
           }}
           transition={{ duration: 0.4 }}
         >
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center mb-5 w-full sm:w-auto max-w-xs sm:max-w-none">
+          <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2.5 sm:gap-4 items-center mb-2.5 w-full max-w-xs sm:max-w-none justify-center">
             <button
               onClick={() => scrollTo("#booking")}
-              className="group flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-full transition-all duration-300 hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] text-sm sm:text-base cursor-pointer"
+              className="group flex items-center justify-center gap-1.5 px-3 py-3 sm:px-8 sm:py-4 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-2xl sm:rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(34,211,238,0.5)] text-xs sm:text-base cursor-pointer"
             >
-              <Wrench className="w-4 h-4" />
-              Book a Repair
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Book Repair</span>
             </button>
             <button
               onClick={() => scrollTo("#shop")}
-              className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 border border-white/20 hover:border-white/50 text-white font-semibold rounded-full transition-all duration-300 hover:bg-white/10 text-sm sm:text-base backdrop-blur-sm cursor-pointer"
+              className="flex items-center justify-center gap-1.5 px-3 py-3 sm:px-8 sm:py-4 border border-white/20 hover:border-white/50 text-white font-semibold rounded-2xl sm:rounded-full transition-all duration-300 hover:bg-white/10 text-xs sm:text-base backdrop-blur-md bg-black/60 cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4" />
-              Shop Phones
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Shop Phones</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-2 text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A1A1AA] font-mono">
+          <div className="flex items-center gap-1.5 text-[9px] sm:text-xs uppercase tracking-[0.2em] text-[#A1A1AA] font-mono">
             <motion.span
-              animate={{ y: [0, 5, 0] }}
+              animate={{ y: [0, 4, 0] }}
               transition={{ duration: 1.6, repeat: Infinity }}
             >
-              <ChevronDown className="w-4 h-4 text-cyan-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
             </motion.span>
-            <span>SCROLL OR MOVE CURSOR TO ROTATE 3D</span>
+            <span>SCROLL OR TOUCH TO ROTATE 3D</span>
           </div>
         </motion.div>
 

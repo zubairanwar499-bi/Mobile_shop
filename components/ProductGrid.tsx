@@ -129,7 +129,7 @@ export default function ProductGrid() {
 
           <button
             onClick={() => setIsListModalOpen(true)}
-            className="group flex items-center justify-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-sm sm:text-base transition-all duration-300 shadow-[0_0_25px_rgba(34,211,238,0.5)] hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] cursor-pointer whitespace-nowrap"
+            className="group flex items-center justify-center gap-2.5 w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 rounded-2xl sm:rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-sm sm:text-base transition-all duration-300 shadow-[0_0_25px_rgba(34,211,238,0.5)] hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] cursor-pointer"
           >
             <PlusCircle className="w-5 h-5 text-black group-hover:rotate-90 transition-transform duration-300" />
             <span>+ Upload Mobile Pic &amp; Details</span>
