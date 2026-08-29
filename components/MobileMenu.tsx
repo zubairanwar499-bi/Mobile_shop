@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Zap, PhoneCall } from "lucide-react";
+import { X, Zap, PhoneCall, Sun, Moon } from "lucide-react";
 import { business } from "@/data/business";
+import { useTheme } from "@/context/ThemeContext";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export default function MobileMenu({
   navLinks,
   onScrollTo,
 }: MobileMenuProps) {
+  const { theme, toggleTheme } = useTheme();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -72,6 +74,24 @@ export default function MobileMenu({
 
             {/* Footer actions */}
             <div className="p-6 border-t border-white/10 space-y-3">
+              {/* Theme Toggle Button in Mobile Drawer */}
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-xs font-semibold text-white flex items-center gap-2">
+                  {theme === "dark" ? (
+                    <Moon className="w-4 h-4 text-cyan-400" />
+                  ) : (
+                    <Sun className="w-4 h-4 text-amber-400" />
+                  )}
+                  <span>{theme === "dark" ? "Dark Mode" : "White Mode"}</span>
+                </span>
+                <button
+                  onClick={toggleTheme}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-400 text-black hover:bg-cyan-300 transition-colors cursor-pointer"
+                >
+                  Switch to {theme === "dark" ? "White" : "Dark"}
+                </button>
+              </div>
+
               <button
                 onClick={() => onScrollTo("#booking")}
                 className="w-full py-3.5 bg-cyan-400 hover:bg-cyan-300 text-black font-semibold rounded-xl transition-colors text-sm"

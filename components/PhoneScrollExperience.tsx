@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useScroll, motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronDown, Wrench, ShoppingBag } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 interface SequenceDef {
   id: string;
@@ -81,6 +82,16 @@ const storyMessages = [
 ];
 
 export default function PhoneScrollExperience() {
+  const { theme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -168,7 +179,8 @@ export default function PhoneScrollExperience() {
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
 
-      ctx.fillStyle = "#000000";
+      const isLight = theme === "light";
+      ctx.fillStyle = isLight ? "#f8fafc" : "#000000";
       ctx.fillRect(0, 0, cw, ch);
       ctx.save();
 
@@ -210,9 +222,18 @@ export default function PhoneScrollExperience() {
         shadowY,
         dw * 0.46
       );
-      shadowGrad.addColorStop(0, "rgba(34, 211, 238, 0.24)");
-      shadowGrad.addColorStop(0.45, "rgba(0, 0, 0, 0.55)");
-      shadowGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      shadowGrad.addColorStop(
+        0,
+        isLight ? "rgba(0, 0, 0, 0.20)" : "rgba(34, 211, 238, 0.24)"
+      );
+      shadowGrad.addColorStop(
+        0.45,
+        isLight ? "rgba(0, 0, 0, 0.06)" : "rgba(0, 0, 0, 0.55)"
+      );
+      shadowGrad.addColorStop(
+        1,
+        isLight ? "rgba(248, 250, 252, 0)" : "rgba(0, 0, 0, 0)"
+      );
 
       ctx.fillStyle = shadowGrad;
       ctx.beginPath();
@@ -240,8 +261,8 @@ export default function PhoneScrollExperience() {
         glareY,
         dw * 0.36
       );
-      glare.addColorStop(0, "rgba(255, 255, 255, 0.14)");
-      glare.addColorStop(0.45, "rgba(34, 211, 238, 0.06)");
+      glare.addColorStop(0, isLight ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.14)");
+      glare.addColorStop(0.45, isLight ? "rgba(2, 132, 199, 0.08)" : "rgba(34, 211, 238, 0.06)");
       glare.addColorStop(1, "rgba(0, 0, 0, 0)");
 
       ctx.fillStyle = glare;
@@ -259,7 +280,7 @@ export default function PhoneScrollExperience() {
 
       ctx.restore();
     },
-    []
+    [theme]
   );
 
   // Resize canvas with DPR scaling for Retina / OLED displays
@@ -503,18 +524,24 @@ export default function PhoneScrollExperience() {
     <section
       id="home"
       ref={containerRef}
-      className="relative bg-[#050505] text-white select-none"
-      style={{ height: "800vh" }}
+      className={`relative select-none transition-colors duration-500 ${
+        theme === "light" ? "bg-[#f8fafc] text-slate-900" : "bg-[#050505] text-white"
+      }`}
+      style={{ height: isMobile ? "260vh" : "750vh" }}
       aria-label="3D Phone Scroll Experience"
     >
       {/* Sticky Hero Viewport (100vh) */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Dynamic Cinematic Background Lighting - seamlessly blends into OLED black */}
+        {/* Dynamic Cinematic Background Lighting */}
         <div
-          className="absolute inset-0 pointer-events-none transition-all duration-700 bg-black"
+          className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
+            theme === "light" ? "bg-[#f8fafc]" : "bg-black"
+          }`}
           style={{
             background:
-              currentSeqIdx === 0
+              theme === "light"
+                ? "radial-gradient(circle at 50% 45%, rgba(224, 242, 254, 0.7) 0%, #f8fafc 70%)"
+                : currentSeqIdx === 0
                 ? "radial-gradient(circle at 50% 45%, rgba(6, 40, 60, 0.22) 0%, #000000 65%)"
                 : currentSeqIdx === 1
                 ? "radial-gradient(circle at 50% 50%, rgba(20, 50, 95, 0.25) 0%, #000000 65%)"
@@ -620,6 +647,15 @@ export default function PhoneScrollExperience() {
               <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
             </motion.span>
             <span>SCROLL OR TOUCH TO ROTATE 3D</span>
+          </div>
+
+          {/* Smart Mobile Value-Props Strip */}
+          <div className="flex items-center justify-center gap-2 sm:gap-5 mt-2 sm:mt-3 text-[9px] sm:text-xs font-semibold text-[#A1A1AA] flex-wrap">
+            <span className="flex items-center gap-1 text-cyan-400">⚡ 30-Min Fast Repair</span>
+            <span>•</span>
+            <span className="flex items-center gap-1">🛡️ 90-Day Warranty</span>
+            <span>•</span>
+            <span className="flex items-center gap-1 text-emerald-400">📦 Free Delivery</span>
           </div>
         </motion.div>
 

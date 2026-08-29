@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ShoppingCart, Menu, Zap } from "lucide-react";
+import { Search, ShoppingCart, Menu, Zap, Sun, Moon } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useTheme } from "@/context/ThemeContext";
 import { business } from "@/data/business";
 import MobileMenu from "./MobileMenu";
 
@@ -15,6 +16,7 @@ export default function Navbar({ onSearchOpen }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { itemCount, toggleCart } = useCart();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -83,7 +85,21 @@ export default function Navbar({ onSearchOpen }: NavbarProps) {
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3">
+              {/* Dark / Light Mode Toggle Button (Mobile & Desktop) */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/10 cursor-pointer flex items-center justify-center relative group"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5 text-amber-300 transition-transform duration-300 group-hover:rotate-45" />
+                ) : (
+                  <Moon className="w-5 h-5 text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                )}
+              </button>
+
               <button
                 onClick={onSearchOpen}
                 className="p-2 text-[#A1A1AA] hover:text-white transition-colors rounded-lg hover:bg-white/5"
