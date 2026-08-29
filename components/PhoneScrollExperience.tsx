@@ -180,7 +180,7 @@ export default function PhoneScrollExperience() {
       const ih = img.naturalHeight;
 
       const isLight = theme === "light";
-      ctx.fillStyle = isLight ? "#f8fafc" : "#000000";
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, cw, ch);
       ctx.save();
 
@@ -564,29 +564,42 @@ export default function PhoneScrollExperience() {
         />
 
         {/* THE 3D PHONE CANVAS (Animated on Scroll & Cursor) */}
-        <div className="relative w-full h-full flex items-center justify-center z-10 pointer-events-none">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full block"
-            aria-label="Interactive 3D phone model"
-          />
+        <div className="relative w-full h-full flex items-center justify-center z-10 pointer-events-none px-3 sm:px-8">
+          <div className={`relative w-full h-full flex items-center justify-center transition-all duration-500 ${
+            theme === "light"
+              ? "max-w-6xl mx-auto h-[62vh] sm:h-[72vh] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.25)] border border-slate-200/90 bg-black"
+              : "w-full h-full"
+          }`}>
+            <canvas
+              ref={canvasRef}
+              className="w-full h-full block"
+              aria-label="Interactive 3D phone model"
+            />
+          </div>
         </div>
 
-        {/* Cinematic Vignettes */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/75 pointer-events-none z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50 pointer-events-none z-10" />
+        {/* Cinematic Vignettes (Active in dark mode, light mode has clean white backdrop) */}
+        {theme === "dark" && (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/75 pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50 pointer-events-none z-10" />
+          </>
+        )}
 
         {/* Preloading Badge (Top Left) */}
         {loadPercent < 100 && (
-          <div className="absolute top-20 left-4 sm:left-8 z-30 flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10">
+          <div className={`absolute top-20 left-4 sm:left-8 z-30 flex items-center gap-2.5 px-3 py-1.5 rounded-full backdrop-blur-md border ${
+            theme === "light"
+              ? "bg-white/90 text-slate-800 border-slate-200 shadow-md"
+              : "bg-black/70 text-white/80 border-white/10"
+          }`}>
             <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-white/80">
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase">
               PRELOADING 3D ASSETS:{" "}
-              <strong className="text-cyan-400">{loadPercent}%</strong>
+              <strong className="text-cyan-500">{loadPercent}%</strong>
             </span>
           </div>
         )}
-
 
         {/* Initial Hero Header Overlay (Top Center - fills the top space with Apple-level typography) */}
         <motion.div
@@ -597,17 +610,29 @@ export default function PhoneScrollExperience() {
           }}
           transition={{ duration: 0.4 }}
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/25 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-cyan-400 font-bold mb-1.5">
+          <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] font-bold mb-1.5 border ${
+            theme === "light"
+              ? "bg-cyan-50 text-cyan-700 border-cyan-200 shadow-sm"
+              : "bg-cyan-400/10 text-cyan-400 border-cyan-400/25"
+          }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             <span>QASIR MOBILE SHOP</span>
           </div>
-          <h1 className="text-lg sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-xl drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
+          <h1 className={`text-lg sm:text-3xl md:text-5xl font-black tracking-tight leading-tight max-w-xl ${
+            theme === "light"
+              ? "text-slate-900 drop-shadow-sm"
+              : "text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]"
+          }`}>
             Next-Gen Smartphone Store &amp; Precision Repair
           </h1>
         </motion.div>
 
         {/* Interactive Cursor / Touch Motion Indicator (Top Right) */}
-        <div className="absolute top-20 sm:top-24 right-4 sm:right-8 hidden md:flex items-center gap-2 text-[10px] font-mono tracking-widest text-[#A1A1AA] uppercase z-20 pointer-events-none bg-black/40 px-3 py-1 rounded-full border border-white/8 backdrop-blur-sm">
+        <div className={`absolute top-20 sm:top-24 right-4 sm:right-8 hidden md:flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase z-20 pointer-events-none px-3 py-1 rounded-full border backdrop-blur-sm ${
+          theme === "light"
+            ? "bg-white/90 text-slate-700 border-slate-200 shadow-sm"
+            : "bg-black/40 text-[#A1A1AA] border-white/8"
+        }`}>
           <span className="w-1 h-1 rounded-full bg-cyan-400" />
           <span>CURSOR &amp; SCROLL DRIVEN 3D</span>
         </div>
@@ -681,13 +706,13 @@ export default function PhoneScrollExperience() {
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className="text-center max-w-4xl"
               >
-                <span className="inline-block text-[10px] sm:text-xs uppercase tracking-[0.3em] text-cyan-400 font-mono mb-2 sm:mb-3 bg-black/60 px-3 py-1 rounded-full border border-cyan-400/20 backdrop-blur-md">
+                <span className="inline-block text-[10px] sm:text-xs uppercase tracking-[0.3em] text-cyan-400 font-mono mb-2 sm:mb-3 bg-black/80 px-3.5 py-1.5 rounded-full border border-cyan-400/30 backdrop-blur-md text-white-force">
                   {activeStory.tag}
                 </span>
-                <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight text-white drop-shadow-[0_15px_40px_rgba(0,0,0,0.95)] leading-[0.95]">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight text-white-force drop-shadow-[0_15px_40px_rgba(0,0,0,0.95)] leading-[0.95]">
                   {activeStory.title}
                 </h2>
-                <p className="text-lg sm:text-2xl md:text-3xl text-cyan-300 font-light mt-2 sm:mt-4 drop-shadow-[0_8px_25px_rgba(0,0,0,0.95)]">
+                <p className="text-lg sm:text-2xl md:text-3xl text-cyan-300 font-light mt-2 sm:mt-4 drop-shadow-[0_8px_25px_rgba(0,0,0,0.95)] text-white-force">
                   {activeStory.subtitle}
                 </p>
               </motion.div>

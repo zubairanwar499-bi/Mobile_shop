@@ -146,8 +146,14 @@ html.light .hover\:bg-white\/20:hover {
 }
 
 /* Text Colors */
-html.light .text-white {
+html.light .text-white:not(.text-white-force, .keep-white, .force-white) {
   color: #0f172a !important;
+}
+
+.text-white-force,
+.keep-white,
+.force-white {
+  color: #ffffff !important;
 }
 
 html.light .text-\[\#A1A1AA\],
