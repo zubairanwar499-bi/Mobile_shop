@@ -185,9 +185,10 @@ export default function PhoneScrollExperience() {
       let scale: number;
       let centerY: number;
       if (isPortrait) {
-        // Mobile portrait: scale to fill viewport heroically, centered perfectly
-        scale = Math.max((cw * 1.30) / iw, (ch * 0.58) / ih);
-        centerY = ch * 0.44 + parallaxY;
+        // Mobile portrait: scale active phone subject (~760px) to occupy 96% of mobile width!
+        // and vertically fit within ~46% of height without any cropping
+        scale = Math.min((cw * 0.96) / 760, (ch * 0.46) / ih);
+        centerY = ch * 0.50 + parallaxY;
       } else {
         // Desktop landscape:
         scale = Math.min((cw * 0.94) / iw, (ch * 0.80) / ih);
@@ -559,6 +560,24 @@ export default function PhoneScrollExperience() {
           </div>
         )}
 
+
+        {/* Initial Hero Header Overlay (Top Center - fills the top space with Apple-level typography) */}
+        <motion.div
+          className="absolute inset-x-0 top-18 sm:top-24 z-20 flex flex-col items-center justify-center px-4 text-center pointer-events-none"
+          animate={{
+            opacity: activeStoryIdx === 0 ? 1 : 0,
+            y: activeStoryIdx === 0 ? 0 : -20,
+          }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/25 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-cyan-400 font-bold mb-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span>QASIR MOBILE SHOP</span>
+          </div>
+          <h1 className="text-lg sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-xl drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
+            Next-Gen Smartphone Store &amp; Precision Repair
+          </h1>
+        </motion.div>
 
         {/* Interactive Cursor / Touch Motion Indicator (Top Right) */}
         <div className="absolute top-20 sm:top-24 right-4 sm:right-8 hidden md:flex items-center gap-2 text-[10px] font-mono tracking-widest text-[#A1A1AA] uppercase z-20 pointer-events-none bg-black/40 px-3 py-1 rounded-full border border-white/8 backdrop-blur-sm">
